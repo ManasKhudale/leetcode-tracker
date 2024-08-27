@@ -1,38 +1,166 @@
-.App {
-  text-align: center;
+h3{
+  font-family: Arial;
+  margin-left: 10px;
+  margin-top: 0px;
+  padding-top:20px;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.external{
+  padding-top: 0px;
+  margin:0;
+  padding: 0;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.navbar{
+  border-bottom: solid;
+  border-color: rgba(70,70,70,255);
+  box-shadow: 2px;
+  background-color: rgba(40,40,40,255);
+  color: rgba(255,255,255,255);
+  margin-bottom:0px;
+  padding: 10px;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+body{
+  background-color: rgba(26,26,26,255);
+}
+
+.body-container{
+  padding-left: 18px;
+  background-color: rgba(26,26,26,255);
+  color: rgba(169,169,169,255);
+  margin-top: 0px;
+  padding-top: 10px;
+}
+
+ul {
+  padding-left: 20px; /* Optional: add some padding to the list */
+  margin-top: 0; /* Ensure no margin at the top of the list */
+}
+
+li{
+  padding: 8px;
+  color: rgb(233, 232, 232);
   display: flex;
-  flex-direction: column;
+  justify-content: space-between;
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+}
+
+h4 {
+  margin-top: 0; /* Ensure no margin at the top of the heading */
+  padding-top: 10px; /* Optional: add some padding if needed */
+}
+
+.add-user{
+  height: 30px;
+  width: 30px;
+  color: rgba(255,161,22,255);
+  background-color: rgba(40,40,40,255);
+  border: white;
+  border: solid 1px;
+  margin-left: auto;
+  margin-right: 15.6px;
+  transition: 0.15s;
+  border-radius: 5.5px;
+}
+
+.add-user:hover{
+  background-color: rgba(255,161,22,255);
+  color: rgba(40,40,40,255);
+  border-color: gray;
+  border-width: 2px;
+}
+
+.add-user:active{
+  background-color: rgba(255,161,22,255);
+  color: rgba(40,40,40,255);
+  border-color: gray;
+  border-width: 2px;
+  box-shadow: 0 0 3px 1px rgba(192, 192, 192, 0.8); /* Glowing effect */
+}
+
+.header-container{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  
+}
+
+ul{
+  padding-left: 0px;
+  margin-right: 15px;
+}
+
+h4{
+  margin-bottom: 10px;
+}
+
+li{
+  border-radius: 10px;
+}
+
+.input-text{
+  margin: -5px 10px 0 10px;
+}
+
+
+input {
+  margin-right: 10px;
+  padding: 5px;
+  background-color: rgba(40,40,40,255);
+  color: rgba(255,161,22,255);
+  border: white;
+  border: solid 1px;
+  border-radius: 5px;
+}
+
+.tooltip {
+  background-color: rgba(40, 40, 40, 255);
+  color: white;
+  border: 1px solid gray;
+  padding: 13px;
+  position: absolute;
+  z-index: 1;
+  margin-top: 5px;
+  border-radius: 20%;
+  /* right: 65%; */
+  top: 80%;
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out; /* Increased duration for clarity */
+  pointer-events: none; /* Prevent interference with hover */
+}
+
+.user-item {
+  position: relative;
+}
+
+.user-item:hover{
+  background-color: rgba(255,255,255,0.1);
+  transition: 0.2s;
+}
+
+.user-item:hover .tooltip {
+  opacity: 1;
+  pointer-events: auto; /* Allow interaction on hover */
+}
+
+
+
+.user-info {
+  flex-grow: 1;
   color: white;
 }
 
-.App-link {
-  color: #61dafb;
+.delete-user {
+  display: none;
+  background-color: rgba(255, 69, 58, 1);
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.user-item:hover .delete-user {
+  display: block;
 }
