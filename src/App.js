@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import './App.css';
 
 function App() {
@@ -21,8 +21,8 @@ function App() {
     }
   }, [users]);
 
-  // Function to fetch data for all users
-  const fetchAllUsersData = async () => {
+  // Function to fetch data for all users, wrapped with useCallback to avoid unnecessary re-creation
+  const fetchAllUsersData = useCallback(async () => {
     const updatedUsers = await Promise.all(users.map(async (user) => {
       try {
         const response = await fetch(`https://leetcode-stats-api.herokuapp.com/${user.username}`);
@@ -37,33 +37,46 @@ function App() {
     }));
 
     setUsers(updatedUsers);
-  };
+  }, [users]);
 
   // Set up polling every 10 minutes (600,000 ms)
   useEffect(() => {
     if (users.length > 0) {
-      const interval = setInterval(fetchAllUsersData, 600); //updating constantly 
-      return () => clearInterval(interval); 
+      const interval = setInterval(fetchAllUsersData, 600000); // 10 minutes
+      return () => clearInterval(interval); // Clean up interval on component unmount
     }
-  }, [users]);
+  }, [users, fetchAllUsersData]);
 
   // Function to fetch user data for a new username
   const fetchUserData = async () => {
-    if (!username) return;
-
+    if (!username) {
+      alert('Please enter a username.');
+      return;
+    }
+  
     try {
       const response = await fetch(`https://leetcode-stats-api.herokuapp.com/${username}`);
       const data = await response.json();
+  
       if (data.status === 'success') {
-        setUsers([...users, { username, ...data }]);
-        setUsername('');
+        // Check if the user already exists in the list
+        if (users.some(user => user.username === username)) {
+          alert('User already exists in the list.');
+        } else {
+          setUsers([...users, { username, ...data }]);
+        }
+        setUsername(''); // Clear the input after adding
+      } else if (data.message) {
+        alert(data.message); // If there's a specific error message from the API
       } else {
-        alert(data.message);
+        alert('An error occurred while fetching the user data. Please try again.');
       }
     } catch (error) {
-      alert('An error occurred while fetching data.');
+      console.error('Error fetching data:', error);
+      alert('An error occurred while fetching the user data. Please check your network connection or try again later.');
     }
   };
+  
 
   const handleHover = (user) => {
     setHoveredUser(user);
